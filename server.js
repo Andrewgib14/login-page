@@ -6,6 +6,7 @@ const logger = require("morgan");
 const path = require("path");
 const sessionConfig = require("./sessionConfig.js");
 const user = require("./data.js")
+const checkAuth = require("./checkAuth.js")
 const app = express();
 const port = process.env.PORT || 8000;
 
@@ -33,6 +34,9 @@ app.get("/signup", function (req, res) {
 app.get("/login", function (req, res) {
     res.render("login");
 })
+app.get("/profile", checkAuth, (req, res) => {
+    res.render("profile", { user: req.session.user });
+})
 
 app.post("/login", function (req, res) {
     let reqUsername = req.body.username;
@@ -45,7 +49,7 @@ app.post("/login", function (req, res) {
     if (foundUser.password === reqPassword) {
         delete foundUser.password;
         req.session.user = foundUser;
-        res.redirect("/profile");
+        res.redirect("profile");
     }
     else {
         return res.render("login", { errors: ["Password does not match."] });
@@ -53,11 +57,9 @@ app.post("/login", function (req, res) {
 })
 
 app.post("/signup", function (req, res) {
-
+    let newUser = req.body;
+    user.push(newUser);
     res.redirect("login");
-})
-app.get("/profile", function (req, res) {
-    res.render("profile", req.session.user);
 })
 
 app.listen(port, function () {

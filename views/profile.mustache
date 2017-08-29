@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{user.name}}'s Profile</title>
 </head>
 
 <body>
@@ -14,10 +14,10 @@
         <a href="/login">Log in</a>
         <a href="/signup">Sign up</a>
     </nav>
-    <h1>Welcome {{name}} you are logged in as {{username}}</h1>
-    <p>Name: {{name}}</p>
-    <p>Username: {{username}}</p>
-    <p>Email: {{email}}</p>
+    <h1>Welcome {{user.name}} you are logged in as {{user.username}}</h1>
+    <p>Name: {{user.name}}</p>
+    <p>Username: {{user.username}}</p>
+    <p>Email: {{user.email}}</p>
 </body>
 
 </html>
